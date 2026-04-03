@@ -2,6 +2,7 @@ package org.zerock.sto_pr.domain.blockchain.entity;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
+import org.zerock.sto_pr.common.converter.JsonNodeConverter;
 import org.zerock.sto_pr.domain.token.entity.PlatformTokenHolding;
 import org.zerock.sto_pr.domain.trade.entity.Trade;
 
@@ -24,6 +25,7 @@ public class BlockchainOutboxQ {
     @JoinColumn(name = "platform_token_holding_id", nullable = false)
     private PlatformTokenHolding platformTokenHolding;
 
+    @Convert(converter = JsonNodeConverter.class)
     @Column(name = "payload_json", nullable = false, columnDefinition = "json")
     private JsonNode payloadJson;
 
