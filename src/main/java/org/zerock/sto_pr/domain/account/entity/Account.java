@@ -50,6 +50,12 @@ public class Account {
     public Member getMember() { return member; }
     public Long getAvailableBalance() { return availableBalance; }
     public Long getLockedBalance() { return lockedBalance; }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    public String getAccountPassword() {
+        return accountPassword;
+    }
 
     public void lockBalance(Long amount) {
         if (availableBalance < amount) {
@@ -81,4 +87,5 @@ public class Account {
         this.availableBalance += amount;
         this.updatedAt = LocalDateTime.now();
     }
+
 }

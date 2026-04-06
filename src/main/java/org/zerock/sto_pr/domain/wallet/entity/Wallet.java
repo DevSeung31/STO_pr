@@ -85,6 +85,7 @@ public class Wallet {
     public WalletRole getWalletRole() { return walletRole; }
     public String getEncryptedPrivateKey() { return encryptedPrivateKey; }
 
+
     public void touchUpdatedAt() {
         this.updatedAt = LocalDateTime.now();
     }
