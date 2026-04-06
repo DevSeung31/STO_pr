@@ -23,7 +23,7 @@ public class TokenVerificationService {
         Token token = tokenRepository.findById(tokenId)
                 .orElseThrow(() -> new IllegalArgumentException("token 없음"));
 
-        ContractGatewayService.chainTokenInfo info =
+        ContractGatewayService.ChainTokenInfo info =
                 contractGatewayService.loadTokenInfo(token.getContractAddress());
 
         boolean nameMathced = token.getTokenName().equals(info.name());

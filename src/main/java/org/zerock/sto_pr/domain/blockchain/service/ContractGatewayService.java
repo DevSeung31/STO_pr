@@ -6,6 +6,7 @@ import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tx.gas.StaticGasProvider;
+import org.zerock.sto_pr.contract.StoToken;
 
 import java.math.BigInteger;
 
@@ -17,7 +18,7 @@ public class ContractGatewayService {
     private final StaticGasProvider gasProvider;
 
 
-    public ContractGatewayService(Web3j web3j, Credentials issuerCredentials, @Value("${blockchain.contract-gas-price-wei}") long gasPriceWei, @Value("{blockchain.contract-gas-limit}") long gasLimit) {
+    public ContractGatewayService(Web3j web3j, Credentials issuerCredentials, @Value("${blockchain.contract-gas-price-wei}") long gasPriceWei, @Value("${blockchain.contract-gas-limit}") long gasLimit) {
         this.web3j = web3j;
         this.issuerCredentials = issuerCredentials;
         this.gasProvider = new StaticGasProvider(
@@ -34,7 +35,7 @@ public class ContractGatewayService {
             String treasuryAddress
     ) throws Exception {
 
-        StoTokenContract contract = StokTokenContract.deploy(
+        StoToken contract = StoToken.deploy(
                 web3j,
                 issuerCredentials,
                 gasProvider,
@@ -59,7 +60,7 @@ public class ContractGatewayService {
             Long quantity,
             Long price
     ) throws Exception {
-        StoTokenContract contract = StoTokenContract.load(
+        StoToken contract = StoToken.load(
                 contractAddress,
                 web3j,
                 issuerCredentials,
@@ -82,7 +83,7 @@ public class ContractGatewayService {
     }
 
     public ChainTokenInfo loadTokenInfo(String contractAddress) throws Exception {
-        StoTokenContract contract = StoTokenContract.load(
+        StoToken contract = StoToken.load(
                 contractAddress,
                 web3j,
                 issuerCredentials,

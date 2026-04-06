@@ -1,12 +1,13 @@
 package org.zerock.sto_pr.common.converter;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import jakarta.persistence.AttributeConverter;
 
 public class JsonNodeConverter implements AttributeConverter<JsonNode, String> {
 
-    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = JsonMapper.builder().build();
 
     // Java -> DB 저장할 때 호출 (JsonNode를 String으로)
     @Override

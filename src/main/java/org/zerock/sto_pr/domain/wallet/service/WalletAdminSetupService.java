@@ -19,9 +19,9 @@ public class WalletAdminSetupService {
         this.walletGenerationService = walletGenerationService;
     }
 
-   @Transactional
-    public void createIssuerWalletIfAbsent() {
-        walletRepository.findByWalletRoleAndWalletStatus(WalletRole.ISSUER, WalletStatus.ACTIVE)
+    @Transactional
+    public Wallet createIssuerWalletIfAbsent() {
+        return walletRepository.findByWalletRoleAndWalletStatus(WalletRole.ISSUER, WalletStatus.ACTIVE)
                 .orElseGet(() -> {
                    WalletGenerationService.GeneratedWallet generated = walletGenerationService.generate();
                    Wallet wallet = new Wallet(
@@ -30,18 +30,15 @@ public class WalletAdminSetupService {
                            WalletType.CUSTODIAL,
                            WalletStatus.ACTIVE,
                            WalletRole.ISSUER,
-                           "토큰 발행 지갑",
-                           generated.encryptedPrivateKey(),
-                           generated.keyVersion(),
-                           "sepolia"
+                           generated.encryptedPrivateKey()
                    );
                    return walletRepository.save(wallet);
                 });
     }
 
     @Transactional
-    public void createTreasuryWalletIfAbsent() {
-        walletRepository.findByWalletRoleAndWalletStatus(WalletRole.PLATFORM_TREASURY, WalletStatus.ACTIVE)
+    public Wallet createTreasuryWalletIfAbsent() {
+        return walletRepository.findByWalletRoleAndWalletStatus(WalletRole.PLATFORM_TREASURY, WalletStatus.ACTIVE)
                 .orElseGet(() -> {
                     WalletGenerationService.GeneratedWallet generated = walletGenerationService.generate();
                     Wallet wallet = new Wallet(
@@ -50,10 +47,7 @@ public class WalletAdminSetupService {
                             WalletType.CUSTODIAL,
                             WalletStatus.ACTIVE,
                             WalletRole.PLATFORM_TREASURY,
-                            "플랫폼 재고 지갑",
-                            generated.encryptedPrivateKey(),
-                            generated.keyVersion(),
-                            "sepolia"
+                            generated.encryptedPrivateKey()
                     );
                     return walletRepository.save(wallet);
                 });

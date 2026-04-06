@@ -2,6 +2,8 @@ package org.zerock.sto_pr.domain.wallet.entity;
 
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.zerock.sto_pr.domain.member.entity.Member;
 
 import java.time.LocalDateTime;
@@ -23,33 +25,27 @@ public class Wallet {
     private String walletAddress;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "wallet_type", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "wallet_type", nullable = false, columnDefinition = "wallet_type_enum")
     private WalletType walletType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "wallet_status", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "wallet_status", nullable = false, columnDefinition = "wallet_status_enum")
     private WalletStatus walletStatus;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "wallet_role", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "wallet_role", nullable = false, columnDefinition = "wallet_role_enum")
     private WalletRole walletRole;
-
-    @Column(name = "wallet_label")
-    private String walletLabel;
 
     @Column(name = "encrypted_private_key")
     private String encryptedPrivateKey;
 
-    @Column(name = "key_version")
-    private String keyVersion;
-
-    @Column(name = "blockchain_network", nullable = false)
-    private String blockchainNetwork = "sepolia";
-
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "update_at", nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
 
     protected Wallet() {
@@ -61,20 +57,14 @@ public class Wallet {
             WalletType walletType,
             WalletStatus walletStatus,
             WalletRole walletRole,
-            String walletLabel,
-            String encryptedPrivateKey,
-            String keyVersion,
-            String blockchainNetwork
+            String encryptedPrivateKey
     ) {
         this.member = member;
         this.walletAddress = walletAddress;
         this.walletType = walletType;
         this.walletStatus = walletStatus;
         this.walletRole = walletRole;
-        this.walletLabel = walletLabel;
         this.encryptedPrivateKey = encryptedPrivateKey;
-        this.keyVersion = keyVersion;
-        this.blockchainNetwork = blockchainNetwork;
     }
 
     public Long getWalletId() { return walletId; }
@@ -84,7 +74,6 @@ public class Wallet {
     public WalletStatus getWalletStatus() { return walletStatus; }
     public WalletRole getWalletRole() { return walletRole; }
     public String getEncryptedPrivateKey() { return encryptedPrivateKey; }
-
 
     public void touchUpdatedAt() {
         this.updatedAt = LocalDateTime.now();

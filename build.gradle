@@ -10,7 +10,7 @@ description = 'STO_pr'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
@@ -25,8 +25,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     implementation 'org.postgresql:postgresql:42.7.4'
-    implementation 'org.web3j:core:4.12.3'
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'org.web3j:core:4.14.0'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

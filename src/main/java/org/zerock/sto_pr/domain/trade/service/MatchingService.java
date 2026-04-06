@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.sto_pr.domain.account.entity.Account;
 import org.zerock.sto_pr.domain.account.repository.AccountRepository;
-import org.zerock.sto_pr.domain.blockchain.service.ContractGatewayService;
+//import org.zerock.sto_pr.domain.blockchain.service.ContractGatewayService;
 import org.zerock.sto_pr.domain.order.entity.Order;
 import org.zerock.sto_pr.domain.order.entity.OrderStatus;
 import org.zerock.sto_pr.domain.order.entity.OrderType;
@@ -39,11 +39,11 @@ public class MatchingService {
 
     @Transactional
     public Long matchOne(Long tokenId) {
-        List<Order> buys = orderRepository.findByToken_TokenIdAndOrderTypeAndOrderStatusOrderBySequenceAsc(
+        List<Order> buys = orderRepository.findByToken_TokenIdAndOrderTypeAndOrderStatusOrderByOrderSequenceAsc(
                 tokenId, OrderType.BUY, OrderStatus.OPEN
         );
 
-        List<Order> sells = orderRepository.findByToken_TokenIdAndOrderTypeAndOrderStatusOrderBySequenceAsc(
+        List<Order> sells = orderRepository.findByToken_TokenIdAndOrderTypeAndOrderStatusOrderByOrderSequenceAsc(
                 tokenId, OrderType.SELL, OrderStatus.OPEN
         );
 

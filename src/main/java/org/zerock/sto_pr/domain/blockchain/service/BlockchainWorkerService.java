@@ -1,6 +1,6 @@
 package org.zerock.sto_pr.domain.blockchain.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.sto_pr.domain.blockchain.entity.BlockchainOutboxQ;

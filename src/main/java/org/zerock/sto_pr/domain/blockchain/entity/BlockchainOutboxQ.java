@@ -1,6 +1,6 @@
 package org.zerock.sto_pr.domain.blockchain.entity;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import tools.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import org.zerock.sto_pr.common.converter.JsonNodeConverter;
 import org.zerock.sto_pr.domain.token.entity.PlatformTokenHolding;

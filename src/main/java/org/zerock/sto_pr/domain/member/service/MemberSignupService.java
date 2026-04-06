@@ -68,10 +68,7 @@ public class MemberSignupService {
                 WalletType.CUSTODIAL,
                 WalletStatus.ACTIVE,
                 WalletRole.MEMBER,
-                "기본 지갑",
-                generatedWallet.encryptedPrivateKey(),
-                generatedWallet.keyVersion(),
-                "sepolia"
+                generatedWallet.encryptedPrivateKey()
         );
 
         walletRepository.save(wallet);
