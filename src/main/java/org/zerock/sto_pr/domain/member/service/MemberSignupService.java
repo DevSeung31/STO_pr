@@ -1,8 +1,9 @@
 package org.zerock.sto_pr.domain.member.service;
 
-import jakarta.transaction.Transactional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.sto_pr.common.util.AccountNumberGenerator;
 import org.zerock.sto_pr.domain.account.entity.Account;
 import org.zerock.sto_pr.domain.account.repository.AccountRepository;

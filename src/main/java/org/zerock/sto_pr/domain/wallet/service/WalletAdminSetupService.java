@@ -1,7 +1,7 @@
 package org.zerock.sto_pr.domain.wallet.service;
 
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.zerock.sto_pr.domain.wallet.entity.Wallet;
 import org.zerock.sto_pr.domain.wallet.entity.WalletRole;
 import org.zerock.sto_pr.domain.wallet.entity.WalletStatus;
@@ -19,7 +19,7 @@ public class WalletAdminSetupService {
         this.walletGenerationService = walletGenerationService;
     }
 
-    @Transactional
+   @Transactional
     public void createIssuerWalletIfAbsent() {
         walletRepository.findByWalletRoleAndWalletStatus(WalletRole.ISSUER, WalletStatus.ACTIVE)
                 .orElseGet(() -> {

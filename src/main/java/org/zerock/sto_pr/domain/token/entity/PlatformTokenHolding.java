@@ -1,6 +1,7 @@
 package org.zerock.sto_pr.domain.token.entity;
 
 import jakarta.persistence.*;
+import org.zerock.sto_pr.domain.admin.entity.Admin;
 
 import java.time.LocalDateTime;
 
