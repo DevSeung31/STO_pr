@@ -6,6 +6,7 @@ import org.zerock.sto_pr.domain.admin.entity.Admin;
 import org.zerock.sto_pr.domain.admin.repository.AdminRepository;
 import org.zerock.sto_pr.domain.asset.entity.Asset;
 import org.zerock.sto_pr.domain.asset.repository.AssetRepository;
+import org.zerock.sto_pr.domain.blockchain.service.BlockchainTxSaveService;
 import org.zerock.sto_pr.domain.blockchain.service.ContractGatewayService;
 import org.zerock.sto_pr.domain.token.dto.TokenIssueRequest;
 import org.zerock.sto_pr.domain.token.entity.PlatformTokenHolding;
@@ -29,15 +30,17 @@ public class TokenIssueService {
     private final PlatformTokenHoldingRepository platformTokenHoldingRepository;
     private final AdminRepository adminRepository;
     private final ContractGatewayService contractGatewayService;
+    private final BlockchainTxSaveService blockchainTxSaveService;
 
 
-    public TokenIssueService(AssetRepository assetRepository, WalletRepository walletRepository, TokenRepository tokenRepository, PlatformTokenHoldingRepository platformTokenHoldingRepository, AdminRepository adminRepository, ContractGatewayService contractGatewayService) {
+    public TokenIssueService(AssetRepository assetRepository, WalletRepository walletRepository, TokenRepository tokenRepository, PlatformTokenHoldingRepository platformTokenHoldingRepository, AdminRepository adminRepository, ContractGatewayService contractGatewayService, BlockchainTxSaveService blockchainTxSaveService) {
         this.assetRepository = assetRepository;
         this.walletRepository = walletRepository;
         this.tokenRepository = tokenRepository;
         this.platformTokenHoldingRepository = platformTokenHoldingRepository;
         this.adminRepository = adminRepository;
         this.contractGatewayService = contractGatewayService;
+        this.blockchainTxSaveService = blockchainTxSaveService;
     }
 
     @Transactional
@@ -77,6 +80,7 @@ public class TokenIssueService {
         PlatformTokenHolding platformTokenHolding =
                 new PlatformTokenHolding(admin, token, request.totalSupply(), request.initPrice());
         platformTokenHoldingRepository.save(platformTokenHolding);
+        blockchainTxSaveService.saveDeployTx(platformTokenHolding, deployResult);
         return token.getTokenId();
     }
 }

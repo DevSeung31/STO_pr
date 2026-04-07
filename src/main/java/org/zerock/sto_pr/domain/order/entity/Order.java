@@ -1,6 +1,8 @@
 package org.zerock.sto_pr.domain.order.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.zerock.sto_pr.domain.member.entity.Member;
 import org.zerock.sto_pr.domain.token.entity.Token;
 
@@ -37,10 +39,12 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_type", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private OrderType orderType;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private OrderStatus orderStatus;
 
     @Column(name = "order_sequence", nullable = false)

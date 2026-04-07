@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(xargs grep:*)"
+      "Bash(xargs grep:*)",
+      "Bash(find /d/BlockChain/STO_pr/src/main/java/org/zerock/sto_pr/domain/blockchain -type f -name *.java)"
     ]
   }
 }

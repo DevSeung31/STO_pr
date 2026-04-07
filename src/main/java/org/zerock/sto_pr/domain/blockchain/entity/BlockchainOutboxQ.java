@@ -1,5 +1,7 @@
 package org.zerock.sto_pr.domain.blockchain.entity;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import tools.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import org.zerock.sto_pr.common.converter.JsonNodeConverter;
@@ -31,6 +33,7 @@ public class BlockchainOutboxQ {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private QueueStatus status;
 
     @Column(name = "retry_count", nullable = false)

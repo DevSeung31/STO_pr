@@ -1,6 +1,8 @@
 package org.zerock.sto_pr.domain.token.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.zerock.sto_pr.domain.asset.entity.Asset;
 
 import java.math.BigDecimal;
@@ -45,6 +47,7 @@ public class Token {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "token_status", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private TokenStatus tokenStatus;
 
     @Column(name = "issued_at", nullable = false)

@@ -1,6 +1,8 @@
 package org.zerock.sto_pr.domain.blockchain.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.zerock.sto_pr.domain.token.entity.PlatformTokenHolding;
 import org.zerock.sto_pr.domain.trade.entity.Trade;
 
@@ -20,7 +22,7 @@ public class BlockchainTx {
     private BlockchainOutboxQ queue;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "trade_id", nullable = false)
+    @JoinColumn(name = "trade_id", nullable = true)
     private Trade trade;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,10 +49,12 @@ public class BlockchainTx {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tx_status", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private TxStatus txStatus;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tx_type", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private TxType txType;
 
     @Column(name = "submitted_at", nullable = false)
@@ -90,13 +94,11 @@ public class BlockchainTx {
     }
 
     public static BlockchainTx deployTx(
-            Trade trade,
             PlatformTokenHolding platformTokenHolding,
             String txHash,
             String contractAddress
     ) {
         BlockchainTx tx = new BlockchainTx();
-        tx.trade = trade;
         tx.platformTokenHolding = platformTokenHolding;
         tx.txHash = txHash;
         tx.contractAddress = contractAddress;

@@ -1,6 +1,8 @@
 package org.zerock.sto_pr.domain.trade.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.zerock.sto_pr.domain.member.entity.Member;
 import org.zerock.sto_pr.domain.order.entity.Order;
 import org.zerock.sto_pr.domain.token.entity.Token;
@@ -44,6 +46,7 @@ public class Trade {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "settlement_status", nullable = false)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private SettlementStatus settlementStatus;
 
     @Column(name = "executed_at", nullable = false)
